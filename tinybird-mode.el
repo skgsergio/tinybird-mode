@@ -3,7 +3,7 @@
 ;; Copyright (c) 2024 Sergio Conde
 
 ;; URL: https://github.com/skgsergio/tinybird-mode
-;; Version: 0.01
+;; Version: 0.0.1
 ;; Package-Requires: ((emacs "24"))
 ;; Keywords: tinybird
 

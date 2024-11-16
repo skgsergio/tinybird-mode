@@ -5,7 +5,7 @@ on Emacs.
 
 **WARNING:** This is a work in progress, current version have some caveats due
 to the lax specification of the language and using regex to parse it. It works
-most of the time but has some minor glitchs. I'll attempt another approach in
+most of the time but has some minor glitches. I'll attempt another approach in
 the future.
 
 ## Install
@@ -24,7 +24,7 @@ For now you can install it using `use-package` from `vc` (Emacs 30+):
 ;; Install tinybird-mode
 (use-package tinybird-mode
   :vc (tinybird-mode :url "https://github.com/skgsergio/tinybird-mode"
-                     :branch "main"))
+                     :rev :newest))
 ```
 
 ## TODO
@@ -32,3 +32,4 @@ For now you can install it using `use-package` from `vc` (Emacs 30+):
 - [ ] Try to avoid using regex (Search-based Font Lock) using either Syntactic
       Font Lock or Parsed-based Font Lock.
 - [ ] Auto-format on save.
+- [ ] Publish on MELPA.
