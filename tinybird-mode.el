@@ -3,7 +3,7 @@
 ;; Copyright (c) 2024 Sergio Conde
 
 ;; URL: https://github.com/skgsergio/tinybird-mode
-;; Version: 0.0.3
+;; Version: 0.0.4
 ;; Package-Requires: ((emacs "24"))
 ;; Keywords: tinybird
 
@@ -81,19 +81,19 @@
        (0 font-lock-string-face))
 
       ;; TOKEN "a name" {READ,APPEND}
-      (,(rx bol (group "TOKEN") (1+ " ") (group (| (: "\"" (1+ (not "\"")) "\"") (1+ alnum))) (1+ " ") (group (| "READ" "APPEND")))
+      (,(rx bol (group "TOKEN") (1+ space) (group (| (: "\"" (1+ (not "\"")) "\"") (1+ alnum))) (1+ space) (group (| "READ" "APPEND")))
        (1 font-lock-builtin-face) (2 font-lock-string-face) (3 font-lock-builtin-face))
 
       ;; Text keywords
-      (,(rx-to-string `(: bol (group (| ,@tinybird-text-keywords)) (1+ " ") (group ">") (0+ " ") (group (0+ "\n" (1+ nonl)))))
+      (,(rx-to-string `(: bol (group (| ,@tinybird-text-keywords)) (1+ space) (group ">") (0+ space) (group (0+ "\n" (1+ nonl)))))
        (1 font-lock-builtin-face) (2 font-lock-constant-face) (3 font-lock-string-face))
-      (,(rx-to-string `(: bol (group (| ,@tinybird-text-keywords)) (group (| eol (: (1+ " ") (0+ nonl))))))
+      (,(rx-to-string `(: bol (group (| ,@tinybird-text-keywords)) (group (| eol (: (1+ space) (0+ nonl))))))
        (1 font-lock-builtin-face) (2 font-lock-string-face))
 
       ;; Code keywords
-      (,(rx-to-string `(: bol (group (| ,@tinybird-code-keywords)) (1+ " ") (group ">") (0+ " ") (0+ "\n" (1+ nonl))))
+      (,(rx-to-string `(: bol (group (| ,@tinybird-code-keywords)) (1+ space) (group ">") (0+ space) (0+ "\n" (1+ nonl))))
        (1 font-lock-builtin-face) (2 font-lock-constant-face))
-      (,(rx-to-string `(: bol (group (| ,@tinybird-code-keywords)) (| eol (: (1+ " ") (0+ nonl)))))
+      (,(rx-to-string `(: bol (group (| ,@tinybird-code-keywords)) (| eol (: (1+ space) (0+ nonl)))))
        (1 font-lock-builtin-face))
 
       ;; [SCHEMA] `json:$.wadus` (JSONPath)
@@ -113,11 +113,12 @@
        (1 font-lock-type-face))
 
       ;; [SQL] Keywords
-      (,(rx-to-string `(: (not alnum) (group (| ,@tinybird-sql)) (not alnum)))
+
+      (,(rx-to-string `(: (| bol space) (group (| ,@tinybird-sql)) (| eol space)))
        (1 font-lock-keyword-face))
 
       ;; [SQL]   % (Templating marker)
-      (,(rx (group (: bol (0+ " ") "%" (0+ " ") eol)))
+      (,(rx (group (: bol (0+ space) "%" (0+ space) eol)))
        (1 font-lock-constant-face))
 
       ;; [SQL] {{ function/value }} (Templating)
