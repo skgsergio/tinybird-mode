@@ -3,7 +3,7 @@
 ;; Copyright (c) 2024 Sergio Conde
 
 ;; URL: https://github.com/skgsergio/tinybird-mode
-;; Version: 0.0.4
+;; Version: 0.0.5
 ;; Package-Requires: ((emacs "24"))
 ;; Keywords: tinybird
 
@@ -104,17 +104,18 @@
       (,(rx (group "`") (group (0+ (not "`"))) (group "`"))
        (1 font-lock-constant-face) (2 font-lock-variable-name-face) (3 font-lock-constant-face))
 
+      ;; [SQL/SCHEMA] ClickHouse Types
+      (,(rx-to-string `(: (| bol space "(" "{{") (group (| ,@tinybird-types)) (| eol space "(")))
+       (1 font-lock-type-face))
+      (,(rx-to-string `(: (| bol space "(") (group (| ,@tinybird-types)) (| eol space ")" ",")))
+       (1 font-lock-type-face))
+
       ;; [SQL/SCHEMA] Functions
       (,(rx (group (1+ (not (any " \n(")))) "(")
        (1 font-lock-function-name-face))
 
-      ;; [SQL/SCHEMA] ClickHouse Types
-      (,(rx-to-string `(: (group (| ,@tinybird-types))))
-       (1 font-lock-type-face))
-
       ;; [SQL] Keywords
-
-      (,(rx-to-string `(: (| bol space) (group (| ,@tinybird-sql)) (| eol space)))
+      (,(rx-to-string `(: (| bol space "(") (group (| ,@tinybird-sql)) (| eol space ")")))
        (1 font-lock-keyword-face))
 
       ;; [SQL]   % (Templating marker)
