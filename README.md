@@ -8,6 +8,8 @@ to the lax specification of the language and using regex to parse it. It works
 most of the time but has some minor glitches. I'll attempt another approach in
 the future.
 
+![example](./example.png)
+
 ## Install
 
 Currently it is not published neither in ELPA nor MELPA as I want to try to

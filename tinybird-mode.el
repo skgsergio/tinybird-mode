@@ -3,7 +3,7 @@
 ;; Copyright (c) 2024 Sergio Conde
 
 ;; URL: https://github.com/skgsergio/tinybird-mode
-;; Version: 0.0.5
+;; Version: 0.0.6
 ;; Package-Requires: ((emacs "24"))
 ;; Keywords: tinybird
 
@@ -65,7 +65,11 @@
       "Float64" "Decimal" "Decimal32" "Decimal64" "Decimal128" "Decimal256" "String" "FixedString" "UUID" "Date"
       "Date32" "DateTime" "DateTime64" "Bool" "Array" "Map" "Tuple" "SimpleAggregateFunction" "AggregateFunction"
       "LowCardinality" "Nullable" "Nothing")
-    "Supported ClickHouse data types."))
+    "Supported ClickHouse data types.")
+
+  (defconst tinybird-templating-keywords
+    '("if" "else" "end")
+    "Templating keywords."))
 
 (defconst tinybird-font-lock-keywords
   (eval-when-compile
@@ -122,9 +126,12 @@
       (,(rx (group (: bol (0+ space) "%" (0+ space) eol)))
        (1 font-lock-constant-face))
 
-      ;; [SQL] {{ function/value }} (Templating)
-      (,(rx (group "{{") (0+ nonl) (group "}}"))
-       (1 font-lock-constant-face) (2 font-lock-constant-face))))
+      ;; [SQL] {{ function/value }} {% conditional %} (Templating)
+      (,(rx (minimal-match (group "{{") (0+ nonl) (group "}}")))
+       (1 font-lock-constant-face) (2 font-lock-constant-face))
+
+      (,(rx-to-string `(: (minimal-match (group "{%") (0+ nonl) (group (| ,@tinybird-templating-keywords)) (0+ nonl) (group "%}"))))
+       (1 font-lock-constant-face) (2 font-lock-constant-face) (3 font-lock-constant-face))))
   "Return the font lock keywords for Tinybird mode.")
 
 (defun tinybird-extend-region ()
