@@ -3,7 +3,7 @@
 ;; Copyright (c) 2024 Sergio Conde
 
 ;; URL: https://github.com/skgsergio/tinybird-mode
-;; Version: 0.0.8
+;; Version: 0.0.9
 ;; Package-Requires: ((emacs "24"))
 ;; Keywords: tinybird
 
@@ -57,7 +57,7 @@
 
   (defconst tinybird-sql
     '("SELECT" "FROM" "WHERE" "GROUP BY" "ORDER BY" "LIMIT" "INSERT" "UPDATE" "DELETE" "JOIN" "LEFT" "RIGHT" "INNER"
-      "OUTER" "ON" "AS" "IN" "BETWEEN" "LIKE" "IS" "NULL" "NOT" "WITH" "AND" "OR" "OFFSET" "INTERVAL")
+      "OUTER" "ON" "AS" "IN" "BETWEEN" "LIKE" "IS" "NULL" "NOT" "WITH" "AND" "OR" "OFFSET" "INTERVAL" "ASC" "DESC")
     "SQL keywords.")
 
   (defconst tinybird-types
