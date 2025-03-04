@@ -3,7 +3,7 @@
 ;; Copyright (c) 2024 Sergio Conde
 
 ;; URL: https://github.com/skgsergio/tinybird-mode
-;; Version: 0.0.6
+;; Version: 0.0.7
 ;; Package-Requires: ((emacs "24"))
 ;; Keywords: tinybird
 
@@ -68,7 +68,7 @@
     "Supported ClickHouse data types.")
 
   (defconst tinybird-templating-keywords
-    '("if" "else" "end")
+    '("if" "elif" "else" "end")
     "Templating keywords."))
 
 (defconst tinybird-font-lock-keywords
